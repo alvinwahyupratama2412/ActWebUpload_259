@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unggah File Sederhana</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Unggah File</h2>
+
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+
+        <label>Pilih file untuk diunggah:</label>
+        <br><br>
+
+        <input 
+            type="file" 
+            name="fileToUpload" 
+            id="fileToUpload"
+            onchange="previewFile()"
+        >
+
+        <br><br>
+
+        <div id="preview"></div>
+
+        <br>
+
+        <input 
+            type="submit" 
+            value="Unggah File" 
+            name="submit"
+        >
+
+    </form>
+
+    <br>
+
+    <a href="lihat_file.php">
+        <button type="button">
+            Lihat File Upload
+        </button>
+    </a>
+
+</div>
+
+<script>
+function previewFile() {
+
+    const file = document
+        .getElementById("fileToUpload")
+        .files[0];
+
+    const preview = document
+        .getElementById("preview");
+
+    preview.innerHTML = "";
+
+    if (!file) return;
+
+    const fileName = document.createElement("p");
+
+    fileName.textContent =
+        "Nama file: " + file.name;
+
+    preview.appendChild(fileName);
+
+    if (file.type.startsWith("image/")) {
+
+        const img = document.createElement("img");
+
+        img.src = URL.createObjectURL(file);
+
+        img.style.maxWidth = "250px";
+        img.style.marginTop = "10px";
+
+        preview.appendChild(img);
+
+    } else {
+
+        const info = document.createElement("p");
+
+        info.textContent =
+            "Preview hanya tersedia untuk file gambar.";
+
+        preview.appendChild(info);
+    }
+}
+</script>
+
+</body>
+</html>
